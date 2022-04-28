@@ -1,59 +1,30 @@
-Sub AltaRegistrosAccess()
-
+Sub insert()
 Dim Conn As ADODB.Connection
-
 Dim MiConexion
-
 Dim Rs As ADODB.Recordset
-
 Dim MiBase As String
-
 MiBase = "MiBase.accdb"
-
-Set Conn New ADODB.Connection
-
-Miconexion = Application. ThisWorkbook. Path & Application. PathSeparator & MiBase
-
+Set Conn = New ADODB.Connection
+MiConexion = Application.ThisWorkbook.Path & Application.PathSeparator & MiBase
 With Conn
-
-.Provider="Microsoft.ACE.OLEDB.12.0"
-
+.Provider = "Microsoft.ACE.OLEDB.12.0"
 .Open MiConexion
-
 End With
-
-Set Rs New ADODB. Recordset
-
-Rs. CursorLocation adUseServer
-
-Rs. Open Source: "MiTabla", CursorType: adopenDynamic, LockType: adLockoptimistic,
-
-ActiveConnection:=Conn,
-
-Options=adCmdTable
-
+Set Rs = New ADODB.Recordset
+Rs.CursorLocation adUseServer
+Rs.Open Source:="MiTabla", CursorType:=adOpenDynamic, LockType:=adLockOptimistic, ActiveConnection:=Conn, Options:=adCmdTable
 'Cargar los datos a Tabla de Access
-
-with Rs
-
+With Rs
 .AddNew
-
-.Fields ("Campol")= UserFormi.TextBox1.Value .Fields ("Campo2") = UserForm1.TextBox2.Value
-
-.Fields ("Campo3") UserFormi.TextBox3.Value
-
+.Fields("Campol") = UserFormi.TextBox1.Value
+.Fields("Campo2") = UserForm1.TextBox2.Value
+.Fields("Campo3") = UserFormi.TextBox3.Value
 End With
-
-Rs. Update
-
-I
-
+Rs.Update
 'cerrar la conexión
-
-Rs.Close Set Conn Nothing
-
+Rs.Close
+Set Conn = Nothing
 Conn.Close
-
-Set Rs Nothing
-
+Set Rs = Nothing
 MsgBox "Alta exitosa", vbInformation, "EXCELEINFO"
+End Sub
